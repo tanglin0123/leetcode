@@ -1,1 +1,2 @@
-test from mac
+test from mac.
+add a new line 
