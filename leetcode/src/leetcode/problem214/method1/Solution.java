@@ -12,7 +12,7 @@ public class Solution {
         boolean evenPalin = false;
         
         for(int pivot = s.length() /2; pivot >=0; --pivot){
-            boolean isPalin = true;
+
             // odd palin
             oddPalin = true;
             if(s.length()%2==0 && pivot == s.length() /2){

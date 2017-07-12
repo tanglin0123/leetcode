@@ -1,7 +1,5 @@
 package leetcode.problem221.method1;
 
-import java.util.*;
-
 public class Solution {
     public int maximalSquare(char[][] matrix) {
         if(matrix==null || matrix.length == 0 || matrix[0].length==0){

@@ -46,9 +46,8 @@ public class Solution {
                     return "Neither";
                 }
                 
-                int i = 0;
                 try{
-                	i = Integer.parseInt(s, 16);
+                		Integer.parseInt(s, 16);
                 } catch(Exception e){
                     return "Neither";
                 }

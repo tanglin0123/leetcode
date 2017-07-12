@@ -23,22 +23,18 @@ public class Solution {
         int searchDist2 = k > len1 ? k - len1 : len2;
         
         int max1 = nums1[start1];
-        int maxIdx1 = start1;
         for(int i = 0; i <= searchDist1; ++i){
             int idx = i + start1;
             if(max1 < nums1[idx]){
                 max1 = nums1[idx];
-                maxIdx1 = idx;
             }
         }
         
         int max2 = nums2[start2];
-        int maxIdx2 = start2;
         for(int i = 0; i <= searchDist2; ++i){
             int idx = i + start2;
             if(max2 < nums2[idx]){
                 max2 = nums2[idx];
-                maxIdx2 = idx;
             }
         }
         
