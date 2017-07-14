@@ -38,15 +38,12 @@ public class QuickSort {
 				nums[j] = nums[i];
 				nums[i] = v;
 				--j;
-				++i;
 			}
 			
 		}
 		
-		nums[i] = key;
 		sort2(nums, start, i -1);
 		sort2(nums, i + 1, end);
-		
 	}
 	
 	public void sort(int[] nums, int start, int end){
