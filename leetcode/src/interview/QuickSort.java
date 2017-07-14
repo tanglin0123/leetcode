@@ -11,6 +11,7 @@ public class QuickSort {
 		this.sort2(nums, 0, nums.length -1);
 	}
 	
+	// alibaba
 	public void sortWithoutRecursive(int[] nums){
 		if(nums == null || nums.length <= 1){
 			return;
