@@ -1,3 +1,5 @@
+package leetcode.problem34.method1;
+
 public class Solution {
     public int[] searchRange(int[] nums, int target) {
         if(nums == null || nums.length == 0){
@@ -20,10 +22,14 @@ public class Solution {
         
         if(nums[start] == target){
             min = start;
+        } else if(nums[start] > target){
+            return new int[]{-1,-1};
         }
         
         if(nums[end] == target){
             max = end;
+        } else if(nums[end] < target){
+            return new int[]{-1,-1};
         }
         
         if(min != -2 && max != -2){ // already got both
@@ -47,11 +53,7 @@ public class Solution {
                 return new int[]{min, max};
             }
         }
-        
-        int i = start, j = end;
-        while(i < j){
-            
-        }
+ 
         int mid = (start + end) / 2;
         
         if(nums[mid] == target){
@@ -67,10 +69,10 @@ public class Solution {
             }
             
             if(max == -2){
-                max = searchMax(nums, start, mid+1, target);
+                max = searchMax(nums, mid+1, end, target);
             }
             
-            return new int[]{min, max};
+            return new int[] {min, max};
         } else if(nums[mid] < target){
             return search(nums, mid+1, end, target);
         } else { // nums[mid] > target
@@ -135,4 +137,17 @@ public class Solution {
         
     }
     
+
+	public static void main(String[] args) {
+		int[] a = {0,0,1,1,1,2,2,3,3,3,4,4,4,4,5,5,6,6,6,8,10,10};
+		int b = 4;
+		
+		Solution s = new Solution();
+		int[] idx = s.searchRange(a, b);
+		
+		for(int i : idx){
+			System.out.println(i);
+		}
+	}
+
 }
