@@ -1,5 +1,6 @@
 package interview;
 
+import java.io.*;
 import java.util.*;
 
 public class Wordament{
@@ -20,7 +21,7 @@ public class Wordament{
 			if(idx < chs.length-1){
 				children[i].addWord(chs, idx + 1);
 			} else {
-				children[26] = new TrieNode('$');
+				children[i].children[26] = new TrieNode('$');
 			}
 		}
 		
@@ -36,12 +37,41 @@ public class Wordament{
 	
 	TrieNode trie = new TrieNode('#');
 	
-	public Wordament(String[] dict){
-		if(dict != null){
-			for(String s : dict){
+	public Wordament(String dict) {
+		FileReader fin = null;
+		BufferedReader reader = null;
+		try {
+			fin = new FileReader(new File(dict));
+			reader = new BufferedReader(fin);
+
+			String s = reader.readLine();
+			while (s != null) {
+				System.out.println(s);
+				
 				trie.addWord(s);
+				s = reader.readLine();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (fin != null) {
+				try {
+					fin.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
+
 	}
 	
 	public Set<String> getAllWords(char[][] board){
@@ -97,88 +127,38 @@ public class Wordament{
 		int rlen = board.length;
 		int clen = board[0].length;
 		
-		// r
-		if(c - 1 >= 0 && !visited[r][c-1]){
-			visited[r][c-1] = true;
-			char v = board[r][c-1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r, c-1, visited, board, rst, curStr);
-			visited[r][c-1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
+		int[][] dir = {{1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1}};
+		
+		for(int[] d : dir){
+			int newr = r + d[0];
+			int newc = c + d[1];
+			
+			if(newr >= 0 && newc >= 0 && newr < rlen && newc < clen && !visited[newr][newc]){
+				visited[newr][newc] = true;
+				char v = board[newr][newc];
+				curStr.append(v);
+				backtrace(curNode.getChild(v), newr, newc, visited, board, rst, curStr);
+				visited[newr][newc] = false;
+				curStr.deleteCharAt(curStr.length()-1);
+			}
+			
 		}
-		
-		if(c + 1 < clen && !visited[r][c+1]){
-			visited[r][c+1] = true;
-			char v = board[r][c+1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r, c+1, visited, board, rst, curStr);
-			visited[r][c+1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		// r + 1
-		if(r + 1 < rlen && !visited[r+1][c]){
-			visited[r+1][c] = true;
-			char v = board[r+1][c];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r+1, c, visited, board, rst, curStr);
-			visited[r+1][c] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		if(r + 1 < rlen && c - 1 >= 0 && !visited[r+1][c-1]){
-			visited[r+1][c-1] = true;
-			char v = board[r+1][c-1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r+1, c-1, visited, board, rst, curStr);
-			visited[r+1][c-1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		if(r + 1 < rlen && c + 1 < clen && !visited[r+1][c+1]){
-			visited[r+1][c+1] = true;
-			char v = board[r+1][c+1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r+1, c+1, visited, board, rst, curStr);
-			visited[r+1][c+1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		// r - 1
-		if(r - 1 >= 0 && !visited[r-1][c]){
-			visited[r-1][c] = true;
-			char v = board[r-1][c];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r-1, c, visited, board, rst, curStr);
-			visited[r-1][c] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-
-		if(r - 1 >= 0 && c + 1 < clen && !visited[r-1][c+1]){
-			visited[r-1][c] = true;
-			char v = board[r-1][c+1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r-1, c+1, visited, board, rst, curStr);
-			visited[r-1][c+1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		if(r - 1 >= 0 && c - 1 >= 0 && !visited[r-1][c-1]){
-			visited[r-1][c-1] = true;
-			char v = board[r-1][c-1];
-			curStr.append(v);
-			backtrace(curNode.getChild(v), r-1, c-1, visited, board, rst, curStr);
-			visited[r-1][c-1] = false;
-			curStr.deleteCharAt(curStr.length()-1);
-		}
-		
-		
-		
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		String source = "wordsEn.txt";
+		
+		String[] a = { "abcd", "efgh", "ijkl", "mnop", };
+		
+		char[][] b = new char[4][];
+		for(int i = 0; i < a.length; ++i){
+			b[i] = a[i].toCharArray();
+		}
+		
+		Wordament w = new Wordament(source);
+		for(String s : w.getAllWords(b)){
+			System.out.println(s);
+		}
 	}
 
 }
