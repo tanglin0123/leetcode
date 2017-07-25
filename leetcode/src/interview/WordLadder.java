@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Solution {
+public class WordLadder {
 
 	public List<String> findPath(String begin, String end, Set<String> dict){
 		List<String> r = new ArrayList<String>();
@@ -75,7 +75,7 @@ public class Solution {
 		String begin = "hit";
 		String end = "cog";
 		
-		Solution s = new Solution();
+		WordLadder s = new WordLadder();
 		
 		List<String> r = s.findPath(begin, end, dict);
 		
