@@ -1,8 +1,8 @@
-package tanglin;
+package interview;
 
 import java.util.*;
 
-public class Solution {
+public class PrimeNum {
 	public Set<Integer> getPrimeDiv(int n){
 		Set<Integer> r = new HashSet<Integer>();
 		
@@ -43,7 +43,7 @@ public class Solution {
 	public static void main(String[] args) {
 		int a = 100;
 		
-		Solution s = new Solution();
+		PrimeNum s = new PrimeNum();
 		for(int i : s.getPrimeDiv(a)) {
 			System.out.print(i+",");
 		}
