@@ -20,11 +20,10 @@ public class MinOfArrays {
 
 		while (i[1] < n1 && i[2] < n2 && i[3] < n3) {
 			int sum = move(pp1, pp2, pp3, i);
-
 			if (sum == 0) { // max == min
 				return 0;
 			}
-
+			
 			min = Math.min(sum, min);
 		}
 
@@ -42,21 +41,13 @@ public class MinOfArrays {
 
 		if (pp1[i[1]] == max) {
 			if (pp2[i[2]] < pp3[i[3]]) {
-				++i[2];
-				
+				++i[2];			
 			} else if (pp2[i[2]] > pp3[i[3]]) {
-				++i[3];
-				
-			} else {
-				int i2 = i[2], i3 = i[3];
-				while (i2 < pp2.length && i3 < pp3.length && pp2[i2] == pp3[i3]) {
-					++i2;
-					++i3;
-				}
-
-				if (i2 == pp2.length || (i3 < pp3.length && pp2[i2] < pp3[i3])) {
+				++i[3];	
+			} else { // p2 == p3
+				int p2 = pp2[i[2]], p3 = pp3[i[3]];
+				while (i[2] < pp2.length && i[3] < pp3.length && p2 == pp2[i[2]] && p3 == pp3[i[3]]) {
 					++i[2];
-				} else {
 					++i[3];
 				}
 			}
@@ -64,40 +55,24 @@ public class MinOfArrays {
 		} else if (pp2[i[2]] == max) {
 			if (pp1[i[1]] < pp3[i[3]]) {
 				++i[1];
-				
 			} else if (pp1[i[1]] > pp3[i[3]]) {
 				++i[3];
-				
 			} else {
-				int i1 = i[1], i3 = i[3];
-				while (i1 < pp1.length && i3 < pp3.length && pp1[i1] == pp3[i3]) {
-					++i1;
-					++i3;
-				}
-
-				if (i1 == pp1.length || (i3 < pp3.length && pp1[i1] < pp3[i3])) {
+				int p1 = pp1[i[1]], p3 = pp3[i[3]];
+				while (i[1] < pp1.length && i[3] < pp3.length && p1 == pp1[i[1]] && p3 == pp3[i[3]]) {
 					++i[1];
-				} else {
 					++i[3];
 				}
 			}
 		} else { // pp3[i[3]] == max
 			if (pp1[i[1]] < pp3[i[2]]) {
 				++i[1];
-				
 			} else if (pp1[i[1]] > pp2[i[2]]) {
 				++i[2];
-				
 			} else {
-				int i2 = i[2], i1 = i[1];
-				while (i2 < pp2.length && i1 < pp1.length && pp2[i2] == pp1[i1]) {
-					++i2;
-					++i1;
-				}
-
-				if (i2 == pp2.length || (i1 < pp1.length && pp2[i2] < pp1[i1])) {
+				int p2 = pp2[i[2]], p1 = pp1[i[1]];
+				while (i[2] < pp2.length && i[1] < pp1.length && p1 == pp1[i[1]] && p2 == pp2[i[2]]) {
 					++i[2];
-				} else {
 					++i[1];
 				}
 			}
