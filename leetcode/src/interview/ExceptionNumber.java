@@ -5,12 +5,23 @@ package interview;
 public class ExceptionNumber {
 	// given a array of int, every one is occurs m times, except one(not told occur time), 
 	// find out the exception one 
-//	public int findException(int[] nums, int m) {
-//		int len = (int)Math.ceil((Math.log(m)/Math.log(2)));
-//		int exNum = nums.length % m;
-//		
-//		
-//	}
+	public int findException(int[] nums, int m) {
+		int len = (int)Math.ceil((Math.log(m)/Math.log(2)));
+		int exNum = nums.length % m;
+		
+		int[] b = new int[len+1];
+		for(int n : nums) {
+			int[] newb = new int[len+1];
+			
+			// calculate newb
+			// TODO too hard
+			
+			b = newb;
+		}
+		
+		int i = (int)(Math.log(exNum)/Math.log(2));
+		return b[i+1];
+	}
 	
 	// given a array of int, every one is occurs 3 times, except one which occur times is not told, 
 	// find out the exception one 
