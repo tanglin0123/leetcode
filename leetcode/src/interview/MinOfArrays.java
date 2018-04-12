@@ -81,6 +81,51 @@ public class MinOfArrays {
 		return 2 * (max - min);
 
 	}
+	
+	public int getMinSumOfThree_2(int[] nums1, int[] nums2, int[] nums3) {
+
+		if (nums1 == null || nums2 == null || nums3 == null || nums1.length == 0
+				|| nums2.length == 0 || nums3.length == 0) {
+			return -1;
+		}
+
+		int n1 = nums1.length, n2 = nums2.length, n3 = nums3.length;
+
+		int p1 = 0, p2 = 0, p3 = 0;
+
+		int r = Integer.MAX_VALUE;
+
+		while (p1 < n1 && p2 < n2 && p3 < n3) {
+			int max = Math.max(nums1[p1], Math.max(nums2[p2], nums3[p3]));
+			int min = Math.min(nums1[p1], Math.min(nums2[p2], nums3[p3]));
+			
+			int sum = (max - min) * 2;
+			if (sum == 0) { // max == min
+				return 0;
+			}
+			
+			r = Math.min(r, sum);
+			
+			if(min == nums1[p1]) {
+				if(p1 == n1 - 1) {
+					return r;
+				}
+				++p1;
+			} else if(min == nums2[p2]) {
+				if(p2 == n2 - 1) {
+					return r;
+				}
+				++p2;
+			} else {
+				if(p3 == n3 - 1) {
+					return r;
+				}
+				++p3;
+			}
+		}
+
+		return r;
+	}
 
 	public static void main(String[] args) {
 		int[] pp1 = { 1, 3, 5, 7 };
@@ -89,6 +134,7 @@ public class MinOfArrays {
 
 		MinOfArrays m = new MinOfArrays();
 		System.out.println(m.getMinSumOfThree(pp1, pp2, pp3));
+		System.out.println(m.getMinSumOfThree_2(pp1, pp2, pp3));
 	}
 
 }
