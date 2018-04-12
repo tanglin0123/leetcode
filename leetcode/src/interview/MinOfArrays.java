@@ -3,7 +3,7 @@ package interview;
 // amazon interview
 public class MinOfArrays {
 
-	// p1,p2,p3 are from pp1,pp2,pp3 respectively, get
+	// p1,p2,p3 are from sorted array pp1,pp2,pp3 respectively, get
 	// min(abs(p1-p2)+abs(p1-p3)+abs(p2-p3))
 	public int getMinSumOfThree(int[] pp1, int[] pp2, int[] pp3) {
 
