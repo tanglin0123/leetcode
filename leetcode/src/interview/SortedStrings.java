@@ -6,7 +6,7 @@ import java.util.*;
 public class SortedStrings {
 
 	// given some sorted strings with some specific char order,
-	// output a list of char obeying the specific order 
+	// output a list of chars obeying the specific order 
 	public List<Character> getOutput(String[] strs) {
 		char[][] chs = new char[strs.length][];
 		for (int i = 0; i < strs.length; ++i) {

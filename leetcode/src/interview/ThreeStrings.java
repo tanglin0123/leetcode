@@ -11,7 +11,7 @@ public class ThreeStrings {
 	// 3) in c, the relatively order between 2 chars from a are maintained, 
 	// so are with chars from b
 	// validate if the given 3 strings obey the rules
-	public boolean validate_dp(String a, String b, String c) { // some like a state machine
+	public boolean validate_broadFirst(String a, String b, String c) { 
 		if(c == null || c.isEmpty()) {
 			return false;
 		}
@@ -24,46 +24,46 @@ public class ThreeStrings {
 			return c.equals(a);
 		}
 		
-		Set<String> dp = new HashSet<String>();
-		dp = new HashSet<String>();
-		dp.add(0 + "," + 0);
+		Set<String> posibilities = new HashSet<String>();
+		posibilities = new HashSet<String>();
+		posibilities.add(0 + "," + 0);
 		
 		for(int i = 1; i <= c.length(); ++i){
 			char ch = c.charAt(i-1);
 			
-			Set<String> newdp = new HashSet<String>();
+			Set<String> newPosibilities = new HashSet<String>();
 			
-			for(String s : dp){
+			for(String s : posibilities){
 				
 				String[] ss = s.split(",");
 				int apos = Integer.parseInt(ss[0]);
 				int bpos = Integer.parseInt(ss[1]);
 				
-				char acand = apos == a.length() ? 0 : a.charAt(apos);
-				char bcand = bpos == b.length() ? 0 : b.charAt(bpos);
+				char aCandidate = apos == a.length() ? null : a.charAt(apos);
+				char bCandidate = bpos == b.length() ? null : b.charAt(bpos);
 				
-				if(ch == acand){
-					newdp.add((apos + 1) + "," +  bpos);
+				if(ch == aCandidate){
+					newPosibilities.add((apos + 1) + "," +  bpos);
 				} 
 				
-				if(ch == bcand){
-					newdp.add(apos + "," + (bpos + 1));
+				if(ch == bCandidate){
+					newPosibilities.add(apos + "," + (bpos + 1));
 				} 
 				
 			}
 			
-			if(newdp.isEmpty()){
+			if(newPosibilities.isEmpty()){
 				return false;
 			}
 			
-			dp = newdp;
+			posibilities = newPosibilities;
 		}
 		
 		return true;
 	}
 	
-	// backtrace. O(2^n) time??
-	public boolean validate_bt(String a, String b, String c){
+	// deep first. O(2^n) time??
+	public boolean validate_deepFirst(String a, String b, String c){
 		if(c == null || c.isEmpty()){ // it depends on the rule
 			return false;
 		}
@@ -84,10 +84,10 @@ public class ThreeStrings {
 			return c.equals(a);
 		}
 
-		return backtrace(a, b, c, 0, 0, 0);
+		return validate_deepFirst(a, b, c, 0, 0, 0);
 	} 
 	
-	private boolean backtrace(String a, String b, String c, int astart, int bstart, int cstart){
+	private boolean validate_deepFirst(String a, String b, String c, int astart, int bstart, int cstart){
 		int alen = a.length();
 		int blen = b.length();
 		
@@ -108,20 +108,16 @@ public class ThreeStrings {
 		}
 		
 		if(cch == ach && cch != bch){
-			return backtrace(a, b, c, astart + 1, bstart, cstart + 1);
+			return validate_deepFirst(a, b, c, astart + 1, bstart, cstart + 1);
 		}
 		
 		if(cch == bch && cch != ach){
-			return backtrace(a, b, c, astart, bstart + 1, cstart + 1);
+			return validate_deepFirst(a, b, c, astart, bstart + 1, cstart + 1);
 		}
 
 		// cch == ach && cch == bch
-		boolean aok = backtrace(a, b, c, astart + 1, bstart, cstart + 1);
-		if(aok){
-			return true;
-		}
-		
-		return backtrace(a, b, c, astart, bstart + 1, cstart + 1);
+		return validate_deepFirst(a, b, c, astart + 1, bstart, cstart + 1) ||
+				validate_deepFirst(a, b, c, astart, bstart + 1, cstart + 1);
 	}
 	
 	// without the rule of keep relative order
@@ -199,8 +195,8 @@ public class ThreeStrings {
 		
 		
 		ThreeStrings t = new ThreeStrings();
-		System.out.println(t.validate_dp(a, b, c));
-		System.out.println(t.validate_bt(a, b, c));
+		System.out.println(t.validate_broadFirst(a, b, c));
+		System.out.println(t.validate_deepFirst(a, b, c));
 		System.out.println(t.validate_simple(a, b, c));
 	}
 

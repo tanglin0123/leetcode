@@ -11,8 +11,7 @@ public class Test {
 		System.out.println(bitCount(4));
 		System.out.println(bitCount(5));
 		System.out.println(bitCount(100));
-		
-		Map<Integer, Integer> map = new HashMap<>();
+
 		
 	}
 	
