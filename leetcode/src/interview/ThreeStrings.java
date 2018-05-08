@@ -39,8 +39,8 @@ public class ThreeStrings {
 				int apos = Integer.parseInt(ss[0]);
 				int bpos = Integer.parseInt(ss[1]);
 				
-				char aCandidate = apos == a.length() ? null : a.charAt(apos);
-				char bCandidate = bpos == b.length() ? null : b.charAt(bpos);
+				char aCandidate = apos == a.length() ? 0 : a.charAt(apos);
+				char bCandidate = bpos == b.length() ? 0 : b.charAt(bpos);
 				
 				if(ch == aCandidate){
 					newPosibilities.add((apos + 1) + "," +  bpos);
@@ -170,6 +170,44 @@ public class ThreeStrings {
 		
 	}
 	
+	public boolean validate_dp(String a, String b, String c) { 
+		int alen = a.length();
+		int blen = b.length();
+		int clen = c.length();
+		
+		boolean[][] dp = new boolean[alen+1][blen+1];
+		
+		dp[0][0] = true;
+		
+		for(int i = 1; i <= clen; ++i) {
+			char ch = c.charAt(i-1);
+			
+			boolean found = false;
+			
+			for(int al = 0; al <= alen && al <= i; ++al) {
+				int bl = i - al;
+				if(bl > blen) {
+					continue;
+				}
+				if(al == 0 && bl-1 < blen) {
+					dp[al][bl] = dp[0][bl-1] && (b.charAt(bl-1) == ch);
+				} else if(bl == 0 && al-1 < alen) {
+					dp[al][bl] = dp[al-1][0] && (a.charAt(al-1) == ch);
+				} else {
+					dp[al][bl] = (dp[al-1][bl] && a.charAt(al-1) == ch) || (dp[al][bl-1] && b.charAt(bl-1) == ch);
+				}
+				
+				found |= dp[al][bl];
+			}
+			
+			if(!found) {
+				return false;
+			}
+		}
+		
+		return dp[alen][blen];
+	}
+	
 	
 	public static void main(String[] args) {
 //		String a = "abczg";
@@ -181,7 +219,7 @@ public class ThreeStrings {
 //		String c = "bbcc";
 		
 		
-		String a = "abcg";
+		String a = "abcg"; 
 		String b = "cdeg";
 		String c = "abcdecgg";
 	
@@ -195,9 +233,11 @@ public class ThreeStrings {
 		
 		
 		ThreeStrings t = new ThreeStrings();
+		
 		System.out.println(t.validate_broadFirst(a, b, c));
 		System.out.println(t.validate_deepFirst(a, b, c));
 		System.out.println(t.validate_simple(a, b, c));
+		System.out.println(t.validate_dp(a, b, c));
 	}
 
 }
