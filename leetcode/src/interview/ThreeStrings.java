@@ -208,6 +208,40 @@ public class ThreeStrings {
 		return dp[alen][blen];
 	}
 	
+	public boolean validate_dp2(String a, String b, String c) { 
+		int alen = a.length();
+		int blen = b.length();
+		
+		boolean[][] dp = new boolean[alen+1][blen+1];
+		
+		dp[0][0] = true;
+		
+		for(int i = 1; i <= alen; ++i) {
+			dp[i][0] = dp[i-1][0] || (a.charAt(i-1) == c.charAt(i-1));
+		}
+		
+		for(int i = 1; i <= blen; ++i) {
+			dp[0][i] = dp[0][i-1] || (b.charAt(i-1) == c.charAt(i-1));
+		}
+		
+		for(int i = 1; i <= alen; ++i) {
+			for(int j = 1; j <= blen; ++j) {
+				char ch = c.charAt(i+j-1);
+				if(ch != a.charAt(i-1) && ch != b.charAt(j-1)) {
+					dp[i][j] = false;
+				} else if(ch == a.charAt(i-1) && ch != b.charAt(j-1)){
+					dp[i][j] = dp[i-1][j];
+				} else if(ch == b.charAt(j-1) && ch != a.charAt(i-1)) {
+					dp[i][j] = dp[i][j-1];
+				} else {
+					dp[i][j] = dp[i-1][j] || dp[i][j-1];
+				}
+			}
+		}
+		
+		return dp[alen][blen];
+	}
+	
 	
 	public static void main(String[] args) {
 //		String a = "abczg";
@@ -217,7 +251,6 @@ public class ThreeStrings {
 //		String a = "bc";
 //		String b = "bc";
 //		String c = "bbcc";
-		
 		
 		String a = "abcg"; 
 		String b = "cdeg";
@@ -231,13 +264,13 @@ public class ThreeStrings {
 //		String b = "cdg";
 //		String c = "abdcgg";
 		
-		
 		ThreeStrings t = new ThreeStrings();
 		
+		System.out.println(t.validate_simple(a, b, c));
 		System.out.println(t.validate_broadFirst(a, b, c));
 		System.out.println(t.validate_deepFirst(a, b, c));
-		System.out.println(t.validate_simple(a, b, c));
 		System.out.println(t.validate_dp(a, b, c));
+		System.out.println(t.validate_dp2(a, b, c));
 	}
 
 }
