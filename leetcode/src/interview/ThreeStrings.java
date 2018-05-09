@@ -229,12 +229,8 @@ public class ThreeStrings {
 				char ch = c.charAt(i+j-1);
 				if(ch != a.charAt(i-1) && ch != b.charAt(j-1)) {
 					dp[i][j] = false;
-				} else if(ch == a.charAt(i-1) && ch != b.charAt(j-1)){
-					dp[i][j] = dp[i-1][j];
-				} else if(ch == b.charAt(j-1) && ch != a.charAt(i-1)) {
-					dp[i][j] = dp[i][j-1];
 				} else {
-					dp[i][j] = dp[i-1][j] || dp[i][j-1];
+					dp[i][j] = (ch == a.charAt(i-1) && dp[i-1][j]) || (ch == b.charAt(j-1) && dp[i][j-1]);
 				}
 			}
 		}
