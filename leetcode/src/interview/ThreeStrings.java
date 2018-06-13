@@ -175,6 +175,8 @@ public class ThreeStrings {
 		int blen = b.length();
 		int clen = c.length();
 		
+		if(clen != alen + blen) return false;
+		
 		boolean[][] dp = new boolean[alen+1][blen+1];
 		
 		dp[0][0] = true;
@@ -211,6 +213,8 @@ public class ThreeStrings {
 	public boolean validate_dp2(String a, String b, String c) { 
 		int alen = a.length();
 		int blen = b.length();
+		
+		if(c.length() != alen + blen) return false;
 		
 		boolean[][] dp = new boolean[alen+1][blen+1];
 		
