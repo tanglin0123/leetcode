@@ -1,5 +1,14 @@
 package leetcode.problem862.method1;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 // time limit exceeded
 class Solution {
     public int shortestSubarray(int[] A, int K) {
@@ -24,8 +33,33 @@ class Solution {
         
         return minlen == Integer.MAX_VALUE ? -1 : minlen;
     }
-
+    
+    
+    static int[] getA1() {
+    	try {
+			List<String> lines = Files.readAllLines(Paths.get(new File("p862.txt").toURI()));
+			String[] strs = lines.get(0).split(",");
+			int[] r = new int[strs.length];
+			for(int i = 0; i < strs.length; ++i) {
+				r[i] = Integer.parseInt(strs[i]);
+			}
+			return r;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
 	public static void main(String[] args) {
+		int[] A = getA1(); 
+		int K = 5837033;
+		
+		Solution s = new Solution();
+		System.out.println(s.shortestSubarray(A, K));
 	}
+	
+	
+	
 
 }
