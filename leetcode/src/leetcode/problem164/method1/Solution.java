@@ -61,7 +61,7 @@ class Solution {
             }
         }
         
-        if(maxgap >= base){
+        if(maxgap >= base - 1){
             return maxgap;
         }
         
