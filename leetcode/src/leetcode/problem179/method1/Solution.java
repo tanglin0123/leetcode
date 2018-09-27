@@ -8,15 +8,16 @@ public class Solution {
         
         sort(nums, 0, nums.length-1);
         
+        if(nums[0] == 0) {
+        	return "0";
+        }
+        
         String r = "";
         for(int n:nums){
             r+= n;
         }
         
-        int i = 0;
-        for(; i < r.length()-1 && r.charAt(i) == '0'; ++i);
-        
-        return r.substring(i);
+        return r;
     }
     
     private void sort(int[] nums, int start, int end){
@@ -52,20 +53,7 @@ public class Solution {
         String s1 = n1+""+n2;
         String s2 = n2+""+n1;
         
-        for(int i = 0; i < s1.length(); ++i){
-            char c1 = s1.charAt(i);
-            char c2 = s2.charAt(i);
-            
-            if(c1 > c2){
-                return 1;
-            }
-            
-            if(c1 < c2){
-                return -1;
-            }
-        }
-        
-        return 0;
+        return s1.compareTo(s2);
     }
 
 	public static void main(String[] args) {
