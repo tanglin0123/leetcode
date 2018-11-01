@@ -5,6 +5,10 @@ import java.util.*;
 public class Test {
 
 	public static void main(String[] args) {
+		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+			return a[1] - b[1];
+		} ) ;
+		
 		String[] ss = "1.0".split("\\.");
 		for(String s:ss) {
 			System.out.println(s);
