@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class Solution1 {
-    
+
     public int[] twoSum(int[] nums, int target) {
         if(nums == null || nums.length == 0) {
             return new int[0];
@@ -38,6 +41,7 @@ public class Solution1 {
 
         int[] result = sln.twoSum(nums, target);
 
-        System.out.println(Arrays.toString(result));
+        // System.out.println(Arrays.toString(result));
+        log.info(Arrays.toString(result));
     }
 }
