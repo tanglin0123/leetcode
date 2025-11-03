@@ -17,11 +17,11 @@
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
+            <!--AppenderRef ref="RollingFile"/-->
         </Root>
         <Logger name="practice" level="debug" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
+            <!--AppenderRef ref="RollingFile"/-->
         </Logger>
     </Loggers>
 </Configuration>
