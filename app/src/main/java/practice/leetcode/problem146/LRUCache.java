@@ -25,15 +25,15 @@ public class LRUCache {
     ListNode first = null;
     ListNode last = null;
 
-    Map<Integer, ListNode> cache;
+    Map<Integer, ListNode> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        cache = new HashMap<>();
+        map = new HashMap<>();
     }
 
     public int get(int key) {
-        ListNode node = cache.get(key);
+        ListNode node = map.get(key);
 
         if(node == null) {
             return -1;
@@ -45,18 +45,21 @@ public class LRUCache {
     }
 
     public void put(int key, int value) {
-        ListNode node = cache.get(key);
+        ListNode node = map.get(key);
 
         if (node == null) {
             node = new ListNode(key, value);
-            cache.put(key, node);
+            map.put(key, node);
         } else {
             node.value = value;
         }
 
         this.moveToFirst(node);
 
-        this.checkAndPurgeLast();
+        if(this.map.size() > capacity) {
+            this.purgeTheLast();
+        }
+        
     }
 
     private void moveToFirst(ListNode node) {
@@ -70,7 +73,7 @@ public class LRUCache {
             return;
         }
 
-        if (first == node) {
+        if (first == node) { // and last is a different node
             return;
         }
 
@@ -92,27 +95,27 @@ public class LRUCache {
         node.prev = null;
         node.next = first;
 
-        this.first.prev = node; 
+        this.first.prev = node;
+
         this.first = node;
 
-        // log.info("after move to first");
-        // this.printCache();
+        log.info("after move to first");
+        this.printCache();
 
     }
 
-    private void checkAndPurgeLast() {
-        if(this.cache.size() > capacity) {
-            this.cache.remove(last.key);
+    private void purgeTheLast() {
+        
+        this.map.remove(last.key);
 
-            ListNode tmpNode = this.last;
-            ListNode tmpPrev = this.last.prev;
-            this.last = tmpPrev;
-            tmpPrev.next = null;
-            tmpNode.prev = null;
-        }
-
-        // log.info("after purge last");
-        // this.printCache();
+        ListNode tmpNode = this.last;
+        ListNode tmpPrev = this.last.prev;
+        this.last = tmpPrev;
+        tmpPrev.next = null;
+        tmpNode.prev = null;
+        
+        log.info("after purge last");
+        this.printCache();
 
     }
 
