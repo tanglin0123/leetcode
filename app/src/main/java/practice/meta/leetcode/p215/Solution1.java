@@ -1,6 +1,5 @@
 package practice.meta.leetcode.p215;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Solution1 {
