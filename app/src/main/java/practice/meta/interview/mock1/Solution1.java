@@ -2,6 +2,7 @@ package practice.meta.interview.mock1;
 
 import java.util.Stack;
 
+// LC P 227
 // evaluate a string formula, with + - * / in it only, need to consider precedance. no need to consider ()
 public class Solution1 {
     public int evaluate(String s) {
@@ -17,7 +18,9 @@ public class Solution1 {
 
         for(char c : s.toCharArray()) {
 
-            if (c >= '0' && c <= '9') {
+            if (c == ' ') {
+                continue;
+            } else if (c >= '0' && c <= '9') {
                 curVal = curVal * 10 + ( (int)c - (int)'0' );
 
             } else {
