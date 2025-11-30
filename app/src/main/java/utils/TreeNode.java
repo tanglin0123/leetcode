@@ -51,6 +51,8 @@ public class TreeNode {
 
         TreeNode root2 = makeTree(new Integer[]{1,null,3,null,5});
 
-        System.out.println("pause");
+        System.out.println(root1);
+        System.out.println(root2);
+
     }
 }
