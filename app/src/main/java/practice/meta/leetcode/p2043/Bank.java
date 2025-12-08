@@ -1,7 +1,5 @@
 package practice.meta.leetcode.p2043;
 
-import java.util.*;
-
 class Bank {
 
     private long[] balance;
