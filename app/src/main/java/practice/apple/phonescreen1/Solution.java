@@ -4,7 +4,6 @@ package practice.apple.phonescreen1;
  * Click `Run` to execute the snippet below!
  */
 
-import java.io.*;
 import java.util.*;
 
 /*
@@ -19,23 +18,21 @@ public class Solution {
   int[][] directions = {
     {-1, -2}, {-2, -1} // ...
   };
-  
+
   public double calculateInBoardPossibility(int x, int y, int n) {
     // board 8*8, start from 0,0
     if (x < 0 || x >= 8 || y < 0 || y >= 8 || n < 0 ) {
-      return -1; // invalid
+      return (double) -1; // invalid
     }
 
     if (n == 0) {
-      return 1;
+      return (double) 1;
     }
 
-    
     // key: "x,y", count in that layer
     Map<String, Integer> map = new HashMap<>();
     Map<String, Integer> newMap = new HashMap<>();
 
-    // LinkedList<int[]> q = new LinkedList<int[]>();
     map.put(x + "," + y, 1);
 
     for (int i = 0; i < n; ++i) {
@@ -55,31 +52,20 @@ public class Solution {
             newCount += count;
             newMap.put(newKey, newCount);
           } 
+        }
       }
 
       Map<String, Integer> tmp = map;
       map = newMap;
       newMap = map;
 
-      // LinkedList<int[]> newQ = new LinkedList<int[]>();
-      // while (!map.isEmpty() ) {
-      //   int[] node = q.poll();
-
-      //   for (int[] dir : directions) {
-      //     int newX = node[0] + dir[0];
-      //     int newY = node[1] + dir[1];
-
-      //     if (checkOnBoard(newX, newY)) {
-      //       newQ.add(new int[] {newX, newY});
-      //     }  
-      //   }
-      // q = newQ;
     }
     
     int sum = 0;
     for (int count : map.values()) {
       sum += count;
     }
+
     return (double) sum / (double) Math.pow(8, n);
   } 
 

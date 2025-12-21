@@ -77,7 +77,7 @@ public class Solution {
             TreeNode node = path.get(i);
             int indentation = indentations.get(i) - minInd;
 
-            for (int j = 0; j < indentation ; ++j`) {
+            for (int j = 0; j < indentation ; ++j) {
                 System.out.print(" ");
             }
             
