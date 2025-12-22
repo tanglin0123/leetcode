@@ -57,7 +57,7 @@ public class Solution {
 
       Map<String, Integer> tmp = map;
       map = newMap;
-      newMap = map;
+      newMap = tmp;
 
     }
     

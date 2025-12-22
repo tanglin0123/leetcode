@@ -64,7 +64,7 @@ public class Cache <K extends Object, V extends Cache.Rankable> {
         V value;
     }
 
-    public static interface Rankable extends Comparable{
+    public static interface Rankable {
         int getRank();
     }
 
